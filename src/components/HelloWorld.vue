@@ -1,61 +1,60 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-typescript" target="_blank" rel="noopener">typescript</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
-  </div>
-</template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  name: 'HelloWorld',
-  props: {
-    msg: String,
-  },
-});
-</script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
+    <div class="sticky-top">
+      <nav
+        class="navbar shadow bg-white rounded justify-content-between flex-nowrap flex-row"
+        style="margin-bottom: 2rem"
+      >
+        <div class="container">
+          <router-link to="/" class="navbar-brand float-left"
+            >Vuex Course</router-link
+          >
+          <ul class="nav navbar-nav d-flex flex-row bd-highlight">
+            <li class="nav-item me-5">
+              <router-link
+                data-testid="nav-heroes"
+                to="/heroes"
+                exact
+                class="nav-link"
+                >{{
+                  heroes.length > 0 ? `(${heroes.length})` : ""
+                }}
+                Heroes</router-link
+              >
+            </li>
+            <li class="nav-item">
+              <router-link
+                data-testid="nav-anti-heroes"
+                to="/anti-heroes"
+                exact
+                class="nav-link"
+                >{{
+                  antiHeroes.length > 0 ? `(${antiHeroes.length})` : ""
+                }}
+                Anti-Heroes</router-link
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </template>
+  
+  <script lang="ts">
+  import { mapGetters } from "vuex";
+  import { defineComponent } from "vue";
+  
+  export default defineComponent({
+    name: "NavBar",
+    computed: {
+      ...mapGetters("heroModule", {
+        heroes: "heroes",
+      }),
+      ...mapGetters("antiHeroModule", {
+        antiHeroes: "antiHeroes",
+      }),
+    },
+  });
+  </script>
+  
+  <style scoped></style>
+  
